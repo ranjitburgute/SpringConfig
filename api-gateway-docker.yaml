@@ -1,0 +1,21 @@
+eureka:
+  instance:
+    client: 
+      serviceUrl: 
+        defaultZone: http://eureka-server:8761/eureka
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: accountsModule
+          uri: http://account:8083/
+          predicates:
+            - Path=/accounts/**
+        - id: userModule
+          uri: http://user:8082/
+          predicates:
+            - Path=/users/**
+  config:
+    import: optional:configserver:http://config-server:8888
+
